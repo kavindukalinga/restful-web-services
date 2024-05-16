@@ -1,5 +1,6 @@
 package com.kalinga.rest.webservices.restfulwebservices.user;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -55,6 +56,27 @@ public class UserResource {
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(savedUser.getId()).toUri();
         return ResponseEntity.created(location).build();
+    }
+
+    @Autowired
+
+    EncryptDecryptService encryptDecryptService;
+
+    @GetMapping("/createKeys")
+    public void createPrivatePublickey() {
+        encryptDecryptService.createKeys(false);
+//        return encryptDecryptService.kkkey();
+    }
+
+    @PostMapping("/encrpyt")
+    public String encryptMessage(@RequestBody String plainString) {
+        return encryptDecryptService.encryptMessage(plainString);
+    }
+
+
+    @PostMapping("/decrpyt")
+    public String decryptMessage(@RequestBody String encryptString) {
+        return encryptDecryptService.decryptMessage(encryptString);
     }
 
 }
