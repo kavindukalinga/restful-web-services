@@ -15,9 +15,6 @@ public class User {
     @Convert(converter = AttributeEncryptor.class)
     private String name;
 
-//    @Autowired
-//    static EncryptDecryptService encryptDecryptService;
-
     @Column(name = "hobby", columnDefinition = "TEXT")
     private String hobby;
 
